@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎯 Abhyas AI
+# 🎯 Abhyas-AI
 ### AI Interview Coach · Practice Powered by Intelligence
 
 Upload your resume, pick a role and a company style, and get interviewed by voice or text.
