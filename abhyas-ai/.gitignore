@@ -1,0 +1,16 @@
+# secrets
+.env
+.streamlit/secrets.toml
+
+# local data / caches
+*.db
+.chroma/
+__pycache__/
+*.pyc
+
+# virtual environments and IDE
+.venv/
+venv/
+env/
+.idea/
+.vscode/

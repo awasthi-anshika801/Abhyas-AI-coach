@@ -1,0 +1,176 @@
+[
+ {
+  "id": "generic-1",
+  "company": "Generic",
+  "type": "technical",
+  "text": "Data Analyst basics: difference between INNER, LEFT, RIGHT and FULL joins; GROUP BY vs HAVING; window functions like ROW_NUMBER and RANK; handling NULLs and duplicates; how to clean a messy dataset in pandas."
+ },
+ {
+  "id": "generic-2",
+  "company": "Generic",
+  "type": "technical",
+  "text": "Machine learning basics: bias-variance tradeoff, overfitting and how to prevent it, precision vs recall vs F1, train/validation/test split, cross-validation, when to use accuracy vs ROC-AUC on imbalanced data."
+ },
+ {
+  "id": "generic-3",
+  "company": "Generic",
+  "type": "technical",
+  "text": "GenAI and LLM basics: what is RAG and why use it over fine-tuning, how chunking size affects retrieval, what embeddings are, how to reduce hallucinations, prompt engineering techniques like few-shot and chain-of-thought, how to evaluate an LLM app."
+ },
+ {
+  "id": "generic-4",
+  "company": "Generic",
+  "type": "behavioral",
+  "text": "Behavioral: tell me about yourself, your biggest challenge in a project, a time you disagreed with a teammate, a failure and what you learned. Answer in STAR format: Situation, Task, Action, Result with a measurable outcome."
+ },
+ {
+  "id": "generic-5",
+  "company": "Generic",
+  "type": "technical",
+  "text": "Python and DSA basics: list vs tuple vs set vs dict, time complexity of dict lookup, two pointers and hashmap patterns, reverse a linked list, detect a cycle, explain recursion vs iteration, decorators and generators."
+ },
+ {
+  "id": "generic-6",
+  "company": "Generic",
+  "type": "project",
+  "text": "Resume project deep-dive: why did you choose this model or library, what was the dataset size, what were the trade-offs, how did you measure success, what would you change if you had more time, how would you deploy it and scale it."
+ },
+ {
+  "id": "tcs-7",
+  "company": "TCS",
+  "type": "process",
+  "text": "TCS typical process: online aptitude and coding test (NQT), then Technical Interview, Managerial Interview and HR round. Technical round focuses on your own projects and academic basics."
+ },
+ {
+  "id": "tcs-8",
+  "company": "TCS",
+  "type": "technical",
+  "text": "TCS technical round themes: explain your final-year project in detail, OOP concepts (inheritance, polymorphism, encapsulation), DBMS (normalization, keys, joins, ACID), basic SQL queries, one programming language of your choice such as C, Java or Python."
+ },
+ {
+  "id": "tcs-9",
+  "company": "TCS",
+  "type": "hr",
+  "text": "TCS HR round themes: willingness to relocate and work in shifts, why TCS, strengths and weaknesses, where do you see yourself in 5 years, how you handle pressure, communication clarity."
+ },
+ {
+  "id": "infosys-10",
+  "company": "Infosys",
+  "type": "process",
+  "text": "Infosys typical process: online assessment (InfyTQ or similar: logical reasoning, math, verbal, pseudocode, coding), then technical interview and HR round."
+ },
+ {
+  "id": "infosys-11",
+  "company": "Infosys",
+  "type": "technical",
+  "text": "Infosys technical themes: DBMS and SQL queries, OOP, data structures like arrays, stacks, queues, basic algorithms, puzzles and logical reasoning, explaining projects and internships, software testing and SDLC basics."
+ },
+ {
+  "id": "infosys-12",
+  "company": "Infosys",
+  "type": "hr",
+  "text": "Infosys HR themes: why Infosys, flexibility with location and technology, teamwork example, learning ability, how you keep your skills updated."
+ },
+ {
+  "id": "wipro-13",
+  "company": "Wipro",
+  "type": "process",
+  "text": "Wipro typical process: online aptitude, written communication and coding assessment, followed by technical and HR interviews."
+ },
+ {
+  "id": "wipro-14",
+  "company": "Wipro",
+  "type": "technical",
+  "text": "Wipro technical themes: programming fundamentals, OOP, DBMS and SQL, basic data structures, project explanation, and for analytics roles Excel, SQL and basic statistics."
+ },
+ {
+  "id": "deloitte-15",
+  "company": "Deloitte",
+  "type": "process",
+  "text": "Deloitte analyst-style process: online aptitude and technical assessment, a case or group-discussion style round for some roles, then technical and HR or partner interviews with emphasis on communication."
+ },
+ {
+  "id": "deloitte-16",
+  "company": "Deloitte",
+  "type": "technical",
+  "text": "Deloitte data analytics themes: SQL joins and aggregations, Excel (pivot tables, VLOOKUP/XLOOKUP), Power BI or Tableau dashboards, explain a KPI you would track for a business problem, basic statistics like mean, median, standard deviation, correlation vs causation."
+ },
+ {
+  "id": "deloitte-17",
+  "company": "Deloitte",
+  "type": "case",
+  "text": "Deloitte case-style questions: a retail client has falling sales, how would you structure the analysis, which data would you ask for, which metrics would you check, how would you present insights to a non-technical stakeholder."
+ },
+ {
+  "id": "accenture-18",
+  "company": "Accenture",
+  "type": "process",
+  "text": "Accenture typical process: cognitive and technical assessment, coding questions, a communication assessment, then a technical and HR interview."
+ },
+ {
+  "id": "accenture-19",
+  "company": "Accenture",
+  "type": "technical",
+  "text": "Accenture technical themes: cloud and networking fundamentals, DBMS and SQL, OOP, one programming language, MS Office or Excel basics, and your project or internship experience."
+ },
+ {
+  "id": "accenture-20",
+  "company": "Accenture",
+  "type": "behavioral",
+  "text": "Accenture behavioral themes: adaptability to new technologies, working in diverse teams, client communication, handling tight deadlines, ethics and integrity scenarios."
+ },
+ {
+  "id": "amazon-21",
+  "company": "Amazon",
+  "type": "process",
+  "text": "Amazon typical process: online assessment with coding and work-style questions, then multiple interviews mixing data structures and algorithms with Leadership Principles behavioral questions, often including a bar raiser."
+ },
+ {
+  "id": "amazon-22",
+  "company": "Amazon",
+  "type": "behavioral",
+  "text": "Amazon Leadership Principles questions: Customer Obsession, Ownership, Invent and Simplify, Dive Deep, Bias for Action, Deliver Results. Example: tell me about a time you took ownership beyond your role. Expect deep follow-ups on exactly what YOU did and the measurable result."
+ },
+ {
+  "id": "amazon-23",
+  "company": "Amazon",
+  "type": "technical",
+  "text": "Amazon technical themes: arrays, strings, hashmaps, trees, graphs, sliding window and two pointers, complexity analysis, and for data roles advanced SQL with window functions and metrics design."
+ },
+ {
+  "id": "google-24",
+  "company": "Google",
+  "type": "process",
+  "text": "Google typical process: recruiter screen, then several technical interviews focused on problem solving, data structures and algorithms, and a behavioral or Googleyness round."
+ },
+ {
+  "id": "google-25",
+  "company": "Google",
+  "type": "technical",
+  "text": "Google technical themes: algorithms and data structures with clear complexity analysis, thinking aloud, handling edge cases, optimizing a brute-force solution, and for ML roles probability, statistics and model evaluation fundamentals."
+ },
+ {
+  "id": "google-26",
+  "company": "Google",
+  "type": "behavioral",
+  "text": "Google behavioral themes: handling ambiguity, collaboration, intellectual humility, how you learn from feedback, leading without authority."
+ },
+ {
+  "id": "startup-27",
+  "company": "Startup (fast-paced)",
+  "type": "process",
+  "text": "Startup interviews are usually shorter with a practical task or take-home: build a small working feature or analysis, then discuss your design decisions with a founder or senior engineer."
+ },
+ {
+  "id": "startup-28",
+  "company": "Startup (fast-paced)",
+  "type": "technical",
+  "text": "Startup themes: ship fast with trade-offs, end-to-end ownership (data, model, API, deployment), GenAI app building with LangChain or LlamaIndex, RAG evaluation, cost and latency of LLM calls, debugging a production issue."
+ },
+ {
+  "id": "startup-29",
+  "company": "Startup (fast-paced)",
+  "type": "behavioral",
+  "text": "Startup behavioral themes: ownership, comfort with ambiguity, wearing multiple hats, how you prioritize when everything is urgent, a project you built on your own initiative."
+ }
+]
