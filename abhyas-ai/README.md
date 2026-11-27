@@ -1,27 +1,79 @@
+<div align="center">
+
 # 🎯 Abhyas AI
-**AI Interview Coach** · *Abhyas (अभ्यास) = practice. Practice like it's the real thing.*
+### AI Interview Coach · Practice Powered by Intelligence
 
-GenAI + data-analytics project: resume + role + company dene par mock interview (text ya voice),
-structured scoring, adaptive cross-questions, code lab, aur analytics dashboard.
+Upload your resume, pick a role and a company style, and get interviewed by voice or text.
+Every answer is scored, weak spots get cross-questioned, and a dashboard tracks your progress.
 
-## Features
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)
+![LangChain](https://img.shields.io/badge/LangChain-1C3C3C)
+![LangGraph](https://img.shields.io/badge/LangGraph-1C3C3C)
+![Gemini](https://img.shields.io/badge/Google_Gemini-4285F4?logo=google&logoColor=white)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-RAG-orange)
+
+**Live demo:** _add your Streamlit link here_
+
+</div>
+
+---
+
+## 📸 Screenshots
+
+### Resume-aware questions with a structured scorecard
+Questions are generated from your own projects. Each answer is scored on four axes, with feedback, weak points and an ideal answer side by side.
+
+![Scorecard](assets/02-scorecard.png)
+
+### Voice mode with speaking analytics
+Answer by speaking. The app transcribes your answer and measures pace (words per minute) and filler words.
+
+![Voice analytics](assets/03-voice-analytics.png)
+
+![Voice mode](assets/04-voice-mode.png)
+
+### Session summary
+![Session summary](assets/06-session-summary.png)
+
+### Code Arena (SQL and Python)
+![Code Arena](assets/05-code-arena.png)
+
+### Insights dashboard
+Filter by company, role and answer mode. Track score trends, skill gaps and speaking pace over time.
+
+![Insights overview](assets/08-insights-overview.png)
+
+![Insights speaking](assets/07-insights-speaking.png)
+
+### Home
+![Home](assets/01-home.png)
+
+---
+
+## ✨ Features
+
 | Area | What it does |
 |------|--------------|
-| **LangGraph workflow** | The interview is a LangGraph state machine: evaluate -> (judge) -> plan -> retrieve -> ask, with conditional routing on the score |
-| **LangChain chains** | Each LLM step is an LCEL chain: `ChatPromptTemplate \| ChatGoogleGenerativeAI.with_structured_output(PydanticModel)` |
-| **Company RAG** | ChromaDB knowledge base (`kb/question_bank.json`) exposed as a LangChain `BaseRetriever` (`KBRetriever`); retrieved context steers question generation (keyword fallback if Chroma is unavailable) |
-| **Resume claim verification** | Questions deep-dive into projects listed in your resume |
-| **Adaptive difficulty** | Weak answer (<5) -> same-topic cross-question; strong (>=7.5) -> harder question |
-| **Structured scorecard** | Pydantic schema + Gemini JSON mode: Technical Accuracy, Clarity, Communication, Depth |
-| **Ideal vs your answer** | Side-by-side, STAR-format ideal answer for behavioral questions |
-| **Voice mode** | Mic recording (`st.audio_input`) -> Gemini transcription -> evaluation; questions read aloud with gTTS |
-| **Speaking analytics** | Words per minute, pace label, filler-word breakdown (um, uh, like, basically...) |
-| **Code Lab** | SQL (read-only in-memory SQLite, result compared with reference) and Python (subprocess, timeout, test cases) + AI complexity review |
-| **Dashboard** | Radar chart, score trend, topic-wise weak areas, speaking trend, code pass rate (SQLite) |
-| **AI Quality tab** | LLM-as-a-Judge audits the evaluator; p50/p95 latency and success rate per call type |
+| **LangGraph workflow** | One interview turn is a state machine: `evaluate → (judge) → plan → retrieve → ask`, with conditional routing based on the score |
+| **LangChain chains** | Every LLM step is an LCEL chain: `ChatPromptTemplate \| ChatGoogleGenerativeAI.with_structured_output(PydanticModel)` |
+| **Company RAG** | Company and role knowledge base in ChromaDB, exposed as a LangChain `BaseRetriever`; keyword fallback if Chroma is unavailable |
+| **Resume claim verification** | A coverage plan rotates questions across your projects, core fundamentals (OOP, DBMS...), role skills and behavioral topics |
+| **Adaptive difficulty** | Weak answer → cross-question, strong answer → harder question, and never two deep-dives in a row |
+| **Structured scorecard** | Technical Accuracy, Clarity, Communication, Depth (Pydantic + Gemini JSON mode), plus weak points and a STAR-format ideal answer |
+| **Voice mode** | Mic recording → Gemini transcription → evaluation. Questions can be read aloud (gTTS) |
+| **Speaking analytics** | Words per minute, pace label and filler-word breakdown (um, uh, like, basically...) |
+| **Code Arena** | SQL (read-only in-memory SQLite, result compared with a reference) and Python (subprocess with timeout and test cases), plus AI complexity review |
+| **Insights dashboard** | Filters, readiness gauge, radar chart, topic × skill heatmap, answer explorer, speaking trends, CSV export |
+| **AI Quality Lab** | LLM-as-a-Judge audits the evaluator (fairness, feedback quality, grounding); p50/p95 latency and success rate per call type |
+| **Resilience** | Automatic retry on temporary 503 errors, friendly quota (429) messages, and the scorecard is kept even if the next question fails |
+| **Privacy by design** | Each visitor's data is isolated by a per-session id; API keys are kept per session, never shared |
 
-## Architecture
-One interview turn is a LangGraph graph (`interview_graph.py`). The caller keeps the state between turns.
+---
+
+## 🧠 How it works
+
+One interview turn is a LangGraph graph (`interview_graph.py`). The Streamlit session keeps the state between turns.
 
 ```mermaid
 flowchart TD
@@ -37,47 +89,119 @@ flowchart TD
   A --> W([wait for next answer])
 ```
 
-Files: `app.py` (Streamlit UI) · `interview_graph.py` (LangGraph) · `lc_chains.py` (LangChain chains + retriever) ·
-`llm.py` (prompts, schemas, raw Gemini SDK baseline, transcription) · `kb.py` (ChromaDB) · `db.py` · `voice.py` · `sandbox.py`.
-The sidebar **LLM engine** switch runs the same graph with LangChain (default) or the raw SDK (fallback/baseline).
+### Design decisions
+- **LangGraph for the flow, not just prompts.** Routing (follow-up vs harder vs new topic) is explicit, testable code instead of hidden inside one big prompt.
+- **Structured outputs everywhere.** Pydantic schemas make scores, questions and judgments machine-readable, so they can be stored and charted.
+- **A raw-SDK baseline.** The sidebar **LLM engine** switch runs the same graph with LangChain (default) or the direct Gemini SDK, which helps with debugging and comparison.
+- **Measure the AI, don't just trust it.** The judge tab and latency tracking exist so evaluator quality and speed can be inspected.
+- **Fail soft.** If question generation fails (quota, busy model), the user keeps the scorecard and retries with one click.
 
-## Run locally
+---
+
+## 🛠 Tech stack
+
+| Layer | Tools |
+|-------|-------|
+| Language | Python |
+| UI | Streamlit |
+| LLM orchestration | LangGraph, LangChain (`langchain-core`, `langchain-google-genai`) |
+| LLM | Google Gemini (structured output, audio transcription) |
+| RAG | ChromaDB, wrapped as a LangChain retriever |
+| Validation | Pydantic |
+| Voice | Streamlit `st.audio_input`, gTTS |
+| Data and charts | SQLite, pandas, Plotly |
+| Resume parsing | pypdf |
+
+---
+
+## 📁 Project structure
+
+```
+abhyas-ai/
+├── app.py                 # Streamlit UI (interview, code arena, insights, AI quality lab)
+├── interview_graph.py     # LangGraph workflow
+├── lc_chains.py           # LangChain chains and retriever
+├── llm.py                 # Prompts, schemas, Gemini SDK baseline, retries, transcription
+├── kb.py                  # ChromaDB knowledge base (keyword fallback)
+├── kb/question_bank.json  # Company and role knowledge base
+├── voice.py               # Pace and filler-word analysis, text-to-speech
+├── sandbox.py             # SQL and Python code arena
+├── db.py                  # SQLite storage (per-visitor isolation)
+├── tests/                 # Offline tests (fake LLMs, no API key needed)
+├── eval/run_eval.py       # Golden-answer check for the evaluator
+└── assets/                # README screenshots
+```
+
+---
+
+## 🚀 Getting started
+
+**Requirements:** Python 3.11 or newer and a free Gemini API key from [Google AI Studio](https://aistudio.google.com).
+
 ```bash
+git clone https://github.com/awasthi-anshika801/abhyas-ai.git
+cd abhyas-ai
+python -m venv .venv
+.venv\Scripts\activate          # Windows   (macOS/Linux: source .venv/bin/activate)
 pip install -r requirements.txt
-export GEMINI_API_KEY=your_key      # Windows: set GEMINI_API_KEY=your_key
 streamlit run app.py
 ```
 
-## Tests and evaluation
+Paste your Gemini API key in the sidebar (it is only used for your session), or set it as an environment variable:
+
 ```bash
-python tests/test_offline.py     # no API key needed (voice, SQL, Python sandbox, KB, DB)
-python tests/test_graph.py       # LangGraph routing + LangChain chains with fake LLMs
-python eval/run_eval.py          # golden answers must rank strong > medium > weak >= empty
+set GEMINI_API_KEY=your_key      # Windows   (macOS/Linux: export GEMINI_API_KEY=your_key)
 ```
 
-## Deploy (Streamlit Community Cloud)
-1. Push this repo to GitHub (never commit API keys; `.gitignore` already excludes `.env` and `*.db`).
-2. share.streamlit.io -> **New app** -> pick the repo, branch `main`, main file `app.py`.
-3. Advanced settings: Python 3.11 or 3.12.
-4. **Do not** put your own key in Secrets for a public app: visitors would burn your free quota.
-   Each visitor pastes their own free Gemini key in the sidebar (kept only in their session).
-5. Each visitor's data is isolated by a per-session id. The SQLite file is ephemeral on Cloud
-   (resets on reboot/redeploy), so treat the dashboard as per-session analytics.
+**Using PyCharm:** open the folder, create a virtual environment under *Settings → Python Interpreter*, run `pip install -r requirements.txt` in the terminal, then `streamlit run app.py`.
 
-Live demo: _add your Streamlit link here_
+### Troubleshooting
+| Message | Meaning and fix |
+|---------|-----------------|
+| `429 RESOURCE_EXHAUSTED` | Free-tier quota used up for that model. Change **Gemini model** in the sidebar (for example `gemini-2.5-flash-lite`) or wait for the daily reset |
+| `503 UNAVAILABLE` | Model temporarily busy. The app retries automatically; if it still fails, wait a minute or switch model |
+| Microphone not working | Allow mic access in the browser; voice recording needs `localhost` or HTTPS |
 
-## Notes and limitations
-- `kb/question_bank.json` contains **general, illustrative interview patterns**, not scraped
-  real experiences. Add genuine experiences (e.g. from your seniors) to improve realism, then delete `.chroma/`.
-- Python sandbox uses a subprocess with a timeout; it is **not hardened**. Don't expose it publicly
-  without containerization.
-- Speech-to-text (transcription) uses the Gemini SDK directly, not LangChain; embeddings come from Chroma's default model.
-- LLM scores are an estimate, not ground truth; the judge tab exists to measure that.
+---
 
-## PyCharm me run karna
-1. `File > Open` se `abhyas-ai` folder kholo.
-2. `Settings > Project > Python Interpreter` me new virtual env (venv) banao.
-3. Terminal (PyCharm ke neeche) me: `pip install -r requirements.txt`
-4. API key set karo: terminal me `set GEMINI_API_KEY=your_key` (Windows) ya app ke sidebar me paste karo.
-5. `streamlit run app.py` chalao, browser me app khulega.
-(Run/Debug config chahiye to: Module name `streamlit`, Parameters `run app.py`.)
+## ✅ Tests and evaluation
+
+```bash
+python tests/test_offline.py   # voice analysis, SQL/Python sandbox, KB, DB isolation, retry logic (no API key)
+python tests/test_graph.py     # LangGraph routing and LangChain chains with fake LLMs (no API key)
+python eval/run_eval.py        # needs a key: golden answers must rank strong > medium > weak >= empty
+```
+
+---
+
+## ☁️ Deploy (Streamlit Community Cloud)
+
+1. Push the repo to GitHub (never commit API keys; `.gitignore` already excludes `.env` and `*.db`).
+2. On [share.streamlit.io](https://share.streamlit.io) choose **New app**, pick this repo, branch `main`, main file `app.py`.
+3. In *Advanced settings* choose Python 3.11 or 3.12.
+4. **Do not** put your own key in Secrets for a public app, otherwise visitors would use up your free quota. Each visitor pastes their own free key in the sidebar.
+
+Note: the SQLite file is ephemeral on Streamlit Cloud, so the dashboard works as per-session analytics there.
+
+---
+
+## ⚠️ Limitations
+
+- `kb/question_bank.json` contains **general, illustrative interview patterns** written for this project, not scraped real interview experiences. Add genuine experiences to make it more realistic, then delete the `.chroma/` folder to rebuild the index.
+- AI scores are estimates, not ground truth. The AI Quality Lab exists to measure how reliable they are.
+- The Python code arena runs code in a subprocess with a timeout. It is **not** a hardened sandbox, so do not expose it publicly without containerization.
+- Speech-to-text uses the Gemini SDK directly (not LangChain), and embeddings come from Chroma's default model.
+
+## 🗺 Roadmap
+- [ ] Real company interview experiences in the knowledge base, with hybrid search and reranking
+- [ ] RAG and answer evaluation with Ragas, plus tracing with Phoenix or Langfuse
+- [ ] FastAPI backend and Docker image
+- [ ] Multi-agent interviewer (interviewer, evaluator and coach agents)
+
+---
+
+<div align="center">
+
+Built by [@awasthi-anshika801](https://github.com/awasthi-anshika801) · Feedback and ideas are welcome via Issues
+
+</div>
