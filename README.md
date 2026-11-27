@@ -13,7 +13,7 @@ Every answer is scored, weak spots get cross-questioned, and a dashboard tracks 
 ![Gemini](https://img.shields.io/badge/Google_Gemini-4285F4?logo=google&logoColor=white)
 ![ChromaDB](https://img.shields.io/badge/ChromaDB-RAG-orange)
 
-**Live demo:** _add your Streamlit link here_
+**Live demo:** https://abhyas-ai-coach-igd2oiw2rcxjuhxibqvnv9.streamlit.app/
 
 </div>
 
